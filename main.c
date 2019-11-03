@@ -2,7 +2,12 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#define P(X) (sizeof(X)>sizeof(int))?printf(#X ": %ld\n",X):printf(#X ": %d\n",(int)X)
+
+#ifdef ARCH_i686
+#define P(X) printf(#X ": %d\n",X)
+#else
+#define P(X) printf(#X ": %ld\n",X)
+#endif
 #define V(F,C,X) printf(F,#X,C X)
 
 int main (int argc, char *const*arg) {

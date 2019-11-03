@@ -1,7 +1,7 @@
-ARCH := ${call arch}
+ARCH := ${shell arch}
 
 CC = gcc
-CFLAGS += -Wall -std=c99
+override CFLAGS += -Wall -std=c99 -DARCH_${ARCH}
 #LDFLAGS += ""
 
 default : default.o
