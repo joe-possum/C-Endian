@@ -3,14 +3,7 @@
 #include <stdio.h>
 
 #define P(X) (sizeof(X)>sizeof(int))?printf(#X ": %ld\n",X):printf(#X ": %d\n",(int)X)
-#define PFMT(X) _Generic((X),				\
-			 char:      "%s : %02Lx\n",		\
-			 short:     "%s : %04Lx\n",		\
-			 int:       "%s : %08Lx\n",		\
-			 long:      "%s : %016Lx\n",	\
-			 long long: "%s : %016Lx\n")
-
-#define V(X) printf(PFMT(X),#X,(long long)X)
+#define V(F,C,X) printf(F,#X,C X)
 
 int main (int argc, char *const*arg) {
   char buf[16];
@@ -28,10 +21,10 @@ int main (int argc, char *const*arg) {
   P(sizeof(float));
   P(sizeof(double));
   P(sizeof(long double));
-  V(*(char*)buf);
-  V(*(short*)buf);
-  V(*(int*)buf);
-  V(*(long*)buf);
-  V(*(long long*)buf);
+  V("%s: %02x\n",(int),*(char*)buf);
+  V("%s: %04x\n",(int),*(short*)buf);
+  V("%s: %08x\n",(int),*(int*)buf);
+  V("%s: %08lx\n",(long),*(long*)buf);
+  V("%s: %016llx\n",(long long),*(long long*)buf);
   return 0;
 }
